@@ -1,6 +1,8 @@
 ## Python script to convert RepoSense code view to markdown
 
-With `authorship.json` in current working directory:
+Usage: `reposense.py [-h] [--formats FORMATS [FORMATS ...]]
+                            [--directory [DIRECTORY]]` <br/>
+Sample: `python3 reposense.py --formats java fxml --directory C:\Users\user\Desktop\`
 
-Usage: `python3 reposense.py --formats FORMATS...` <br/>
-Sample: `python3 reposense.py --formats java fxml`
+* `--formats`: File formats to be included. Default: all files will be included.
+* `--directory`: Directory to perform the conversion. Default: current working directory.
