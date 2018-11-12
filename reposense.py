@@ -65,6 +65,9 @@ def parse_args():
             help='File formats to be included. Default: all files will be included.')
     parser.add_argument('--directory', nargs='?', default='.',
             help='Directory containing the reposense-report for conversion. Default: current working directory.')
+    parser.add_argument('--minlines', nargs='?', type=int, default='3',
+            help='Minimum number of consecutive lines for acceptance. '
+                 'Chunks that does not meet the requirement will not be extracted to the markdown file. Default: 3.')
     args = parser.parse_args(sys.argv[1:])
     return vars(args)
 
@@ -72,6 +75,7 @@ if __name__ == "__main__":
     args = parse_args()
     inclusive_exts = args['formats']
     input_directory = args['directory'] # where to look for reposense-report folder
+    min_line = args['minlines']
 
     file_list = get_authorship_files(input_directory)
 
@@ -102,11 +106,13 @@ if __name__ == "__main__":
 
             close_file_header(db, last_author)
 
-        output_path = OUTPUT_FOLDER + os.path.dirname(file.split(REPOSENSE_FOLDER_NAME, 1)[1])
+        split = file.split(REPOSENSE_FOLDER_NAME, 1)
+        filename = split[0] if len(split) is 1 else split[1]
+        output_path = OUTPUT_FOLDER + os.path.dirname(filename)
         if not os.path.exists(output_path):
             os.makedirs(output_path)
 
-        filter_low_contrib(db, 3)
+        filter_low_contrib(db, min_line)
         for author in db:
             with open(os.path.join(output_path, author + ".md"), 'w') as f:
                 f.write('\n'.join(db[author]))
