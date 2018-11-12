@@ -1,7 +1,6 @@
 ## Python script to convert RepoSense code view to markdown
 
-Usage: `reposense.py [-h] [--formats FORMATS [FORMATS ...]]
-                            [--directory [DIRECTORY]]` <br/>
+Usage: `reposense.py [-h] [--formats FORMATS [FORMATS ...]] [--directory [DIRECTORY]] [--minlines [MINLINES]]` <br/>
 Sample: `python3 reposense.py --formats java fxml --directory C:\Users\user\Desktop\`
 
 * `--formats`: File formats to be included. Default: all files will be included.
