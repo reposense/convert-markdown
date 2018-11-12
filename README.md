@@ -2,5 +2,5 @@
 
 With `authorship.json` in current working directory:
 
-Usage: `python3 reposense.py FORMATS...` <br/>
-Sample: `python3 reposense.py java fxml`
+Usage: `python3 reposense.py --formats FORMATS...` <br/>
+Sample: `python3 reposense.py --formats java fxml`
