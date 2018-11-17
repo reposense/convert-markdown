@@ -5,7 +5,7 @@ Usage: `reposense.py [-h] [--formats FORMATS [FORMATS ...]] [--directory [DIRECT
 Sample: `python3 reposense.py --formats java fxml --directory C:\Users\user\Desktop\ --datadir src/main --subdir functional`
 
 * `--formats`: File formats to be included. Default: all files will be included.
-* `--directory`: Directory to perform the conversion. Default: current working directory.
+* `--directory`: Directory that contains the `reposense-report`. Default: looks for `reposense-report` in the current working directory.
 * `--minlines`: Minimum number of consecutive lines for acceptance. 
 Chunks that does not meet the requirement will not be extracted to the markdown file. Default: 3.
 * `--datadir`: Data files' directory to be included. Default: all data files will be included.
