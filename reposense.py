@@ -68,6 +68,11 @@ def parse_args():
     parser.add_argument('--minlines', nargs='?', type=int, default='3',
             help='Minimum number of consecutive lines for acceptance. '
                  'Chunks that does not meet the requirement will not be extracted to the markdown file. Default: 3.')
+    parser.add_argument('--datadir', nargs='?', type=str,
+            help="Data files' directory to be included. Default: All data files will be included.")
+    parser.add_argument('--subdir', nargs='?', type=str,
+            help="Create a sub-directory in the group folder to store the author files."
+                 "Default: author files will be placed directly in the group folder.")
     args = parser.parse_args(sys.argv[1:])
     return vars(args)
 
@@ -76,6 +81,8 @@ if __name__ == "__main__":
     inclusive_exts = args['formats']
     input_directory = args['directory'] # where to look for reposense-report folder
     min_line = args['minlines']
+    data_dir = args['datadir'] if args['datadir'] is not None else ""
+    sub_dir = "/" + args['subdir'] + "/" if args['subdir'] is not None else ""
 
     file_list = get_authorship_files(input_directory)
 
@@ -86,6 +93,8 @@ if __name__ == "__main__":
         for data in data_files:
             last_author = ""
             data_filename = data['path']
+            if not data_filename.startswith(data_dir):
+                continue
             ext = os.path.splitext(data_filename)[1].replace('.', '')
             if inclusive_exts is not None and ext not in inclusive_exts and len(inclusive_exts) > 0:
                 continue
@@ -108,7 +117,7 @@ if __name__ == "__main__":
 
         split = file.split(REPOSENSE_FOLDER_NAME, 1)
         filename = split[0] if len(split) is 1 else split[1]
-        output_path = OUTPUT_FOLDER + os.path.dirname(filename)
+        output_path = OUTPUT_FOLDER + os.path.dirname(filename) + sub_dir
         if not os.path.exists(output_path):
             os.makedirs(output_path)
 
